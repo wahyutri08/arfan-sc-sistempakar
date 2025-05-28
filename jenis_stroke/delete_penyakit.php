@@ -7,9 +7,9 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
 }
 
 
-$id_gejala = $_GET["id_gejala"];
+$id_penyakit = $_GET["id_penyakit"];
 
-if (deleteGejala($id_gejala) > 0) {
+if (deletePenyakit($id_penyakit) > 0) {
     echo json_encode(['status' => 'success']);
 } else {
     echo json_encode(['status' => 'error']);

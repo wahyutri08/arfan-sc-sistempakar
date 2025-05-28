@@ -7,29 +7,29 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
 }
 
 
-if (isset($_GET["id_gejala"]) && is_numeric($_GET["id_gejala"])) {
-    $id_gejala = $_GET["id_gejala"];
+if (isset($_GET["id_penyakit"]) && is_numeric($_GET["id_penyakit"])) {
+    $id_penyakit = $_GET["id_penyakit"];
 } else {
     header("HTTP/1.1 404 Not Found");
     include("../error/error-404.html");
     exit;
 }
 
-$gejala = query("SELECT * FROM gejala WHERE id_gejala = $id_gejala");
+$penyakit = query("SELECT * FROM penyakit WHERE id_penyakit = $id_penyakit");
 
-if (empty($gejala)) {
+if (empty($penyakit)) {
     header("HTTP/1.1 404 Not Found");
     include("../error/error-404.html");
     exit;
 }
-$gejala = $gejala[0];
+$penyakit = $penyakit[0];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $result = editGejala($_POST);
+    $result = editPenyakit($_POST);
     if ($result > 0) {
         echo json_encode(["status" => "success", "message" => "Data Successfully Updated"]);
     } elseif ($result == -1) {
-        echo json_encode(["status" => "error", "message" => "Kode Gejala Already Existed"]);
+        echo json_encode(["status" => "error", "message" => "Kode Stroke Already Existed"]);
     } else {
         echo json_encode(["status" => "error", "message" => "Data Failed to Update"]);
     }
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit - <?= $gejala["kode_gejala"]; ?></title>
+    <title>Edit - <?= $penyakit["kode_penyakit"]; ?></title>
 
 
 
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="page-title mb-3">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Edit Gejala</h3>
+                            <h3>Edit Jenis Stroke</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav
@@ -86,9 +86,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <li class="breadcrumb-item" aria-current="page">
                                         Master Data
                                     </li>
-                                    <li class="breadcrumb-item" aria-current="page">Gejala</li>
+                                    <li class="breadcrumb-item" aria-current="page">Jenis Stroke</li>
                                     <li class="breadcrumb-item" aria-current="page">Edit</li>
-                                    <li class="breadcrumb-item active" aria-current="page"><?= $gejala["kode_gejala"]; ?></li>
+                                    <li class="breadcrumb-item active" aria-current="page"><?= $penyakit["kode_penyakit"]; ?></li>
                                 </ol>
                             </nav>
                         </div>
@@ -101,27 +101,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">DATA GEJALA</h4>
+                                    <h4 class="card-title">DATA STROKE</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
                                         <form method="POST" action="" enctype="multipart/form-data" class="form form-horizontal" data-parsley-validate id="myForm">
-                                            <input type="hidden" name="id_gejala" value="<?= $gejala["id_gejala"]; ?>">
+                                            <input type="hidden" name="id_penyakit" value="<?= $penyakit["id_penyakit"]; ?>">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <label for="kode_gejala" class="form-label">Kode Gejala <span class="text-danger">*</span></label>
+                                                        <label for="kode_penyakit" class="form-label">Kode Stroke <span class="text-danger">*</span></label>
                                                     </div>
-                                                    <div class="col-md-8 form-group mandatory">
-                                                        <input type="text" id="kode_gejala" class="form-control" name="kode_gejala"
-                                                            placeholder="Kode Gejala" value="<?= $gejala["kode_gejala"]; ?>" data-parsley-required="true" />
+                                                    <div class="col-md-5 form-group mandatory">
+                                                        <input type="text" id="kode_penyakit" class="form-control" name="kode_penyakit"
+                                                            placeholder="Kode Stroke" value="<?= $penyakit["kode_penyakit"]; ?>" data-parsley-required="true" />
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label for="nama_gejala">Nama Gejala <span class="text-danger">*</span></label>
+                                                        <label for="nama_penyakit">Nama Jenis Stroke <span class="text-danger">*</span></label>
                                                     </div>
-                                                    <div class="col-md-8 form-group">
-                                                        <input type="text" id="nama_gejala" class="form-control" name="nama_gejala"
-                                                            placeholder="Nama Gejala" value="<?= $gejala["nama_gejala"]; ?>" data-parsley-required="true" />
+                                                    <div class="col-md-5 form-group">
+                                                        <input type="text" id="nama_penyakit" class="form-control" name="nama_penyakit"
+                                                            placeholder="Nama Jenis Stroke" value="<?= $penyakit["nama_penyakit"]; ?>" data-parsley-required="true" />
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="deskripsi">Deskripsi <span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-5 form-group">
+                                                        <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3" data-parsley-required="true" /><?= $penyakit["deskripsi"]; ?></textarea>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="solusi">Solusi <span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-md-5 form-group">
+                                                        <textarea class="form-control" id="solusi" name="solusi" rows="3" data-parsley-required="true" /><?= $penyakit["solusi"]; ?></textarea>
                                                     </div>
                                                     <div class="col-sm-12 d-flex justify-content-end mt-3">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1">Save Change</button>
@@ -178,7 +190,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 text: res.message,
                                 icon: "success"
                             }).then(() => {
-                                window.location.href = '../gejala';
+                                window.location.href = '../jenis_stroke';
                             });
                         } else {
                             Swal2.fire('Error', res.message, 'error');

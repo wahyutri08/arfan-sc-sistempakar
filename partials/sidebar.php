@@ -3,7 +3,7 @@
 $current_page = basename($_SERVER['REQUEST_URI']);
 
 // Halaman-halaman yang berada di dalam Master Data
-$master_data_pages = ['data_pasien', 'gejala', 'rule_fuzzy'];
+$master_data_pages = ['data_pasien', 'gejala', 'jenis_stroke'];
 $keputusan = ['keputusan'];
 $settings_page = ['profile', 'change_password'];
 
@@ -75,16 +75,12 @@ $user = query("SELECT * FROM users WHERE id = $id")[0];
                         <li class="submenu-item <?= ($current_page == 'gejala' ? 'active' : '') ?> ">
                             <a href="../gejala" class="submenu-link">Gejala</a>
                         </li>
-                        <?php
-                        if ($user['role'] == 'Admin') {
-                            echo '<li class="submenu-item ' . ($current_page == 'data_variabel' ? 'active' : '') . '">
-                                    <a href="../data_variabel" class="submenu-link">Data Variabel</a>
-                                </li>
-                                <li class="submenu-item ' . ($current_page == 'rule_fuzzy' ? 'active' : '') . '">
-                                    <a href="../rule_fuzzy" class="submenu-link">Rule Fuzzy</a>
-                                </li>';
-                        }
-                        ?>
+                        <li class="submenu-item <?= ($current_page == 'jenis_stroke' ? 'active' : '') ?> ">
+                            <a href="../jenis_stroke" class="submenu-link">Jenis Stroke</a>
+                        </li>
+                        <li class="submenu-item <?= ($current_page == 'rule' ? 'active' : '') ?> ">
+                            <a href="../rule" class="submenu-link">Rule</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="sidebar-item <?= (in_array($current_page, $keputusan)) ? 'active' : '' ?> has-sub">

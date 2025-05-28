@@ -303,6 +303,76 @@ function editGejala($data)
     return mysqli_affected_rows($db);
 }
 
+function deleteGejala($id_gejala)
+{
+    global $db;
+    mysqli_query($db, "DELETE FROM gejala WHERE id_gejala = $id_gejala");
+    return mysqli_affected_rows($db);
+}
+
+function addPenyakit($data)
+{
+    global $db;
+
+    $kode_penyakit = mysqli_real_escape_string($db, $data["kode_penyakit"]);
+    $nama_penyakit = htmlspecialchars($data["nama_penyakit"]);
+    $deskripsi = htmlspecialchars($data["deskripsi"]);
+    $solusi = htmlspecialchars($data["solusi"]);
+
+    // Periksa apakah Kode Gejala sudah ada di database
+    $query = "SELECT * FROM penyakit WHERE kode_penyakit = '$kode_penyakit'";
+    $result = mysqli_query($db, $query);
+    if (mysqli_fetch_assoc($result)) {
+        // Jika Kode Gejala sudah ada, return -1
+        return -1;
+    }
+
+    $query = "INSERT INTO penyakit 
+        (kode_penyakit, nama_penyakit, deskripsi, solusi)
+        VALUES 
+        ('$kode_penyakit', '$nama_penyakit', '$deskripsi', '$solusi')";
+
+    mysqli_query($db, $query);
+    return mysqli_affected_rows($db);
+}
+
+function editPenyakit($data)
+{
+    global $db;
+    $id_penyakit = $data["id_penyakit"];
+    $kode_penyakit = mysqli_real_escape_string($db, $data["kode_penyakit"]);
+    $nama_penyakit = htmlspecialchars($data["nama_penyakit"]);
+    $deskripsi = htmlspecialchars($data["deskripsi"]);
+    $solusi = htmlspecialchars($data["solusi"]);
+
+    // Periksa apakah kode sudah ada, tetapi abaikan baris yang sedang diedit
+    $query = "SELECT * FROM penyakit WHERE kode_penyakit = '$kode_penyakit' AND id_penyakit != $id_penyakit";
+    $result = mysqli_query($db, $query);
+
+    if (mysqli_fetch_assoc($result)) {
+        return -1;
+    }
+
+    $updatedAt = date('Y-m-d H:i:s');
+    // Jika kode tidak ada yang duplikat, lakukan update
+    $query = "UPDATE penyakit SET kode_penyakit = '$kode_penyakit', 
+                     nama_penyakit = '$nama_penyakit',
+                     deskripsi = '$deskripsi',
+                     solusi = '$solusi',
+                     updated_at = '$updatedAt'
+                      WHERE id_penyakit = $id_penyakit";
+    mysqli_query($db, $query);
+
+    return mysqli_affected_rows($db);
+}
+
+function deletePenyakit($id_penyakit)
+{
+    global $db;
+    mysqli_query($db, "DELETE FROM penyakit WHERE id_penyakit = $id_penyakit");
+    return mysqli_affected_rows($db);
+}
+
 function upload()
 {
 
