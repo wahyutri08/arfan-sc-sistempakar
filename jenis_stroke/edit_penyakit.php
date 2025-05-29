@@ -6,6 +6,11 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
     exit;
 }
 
+if ($_SESSION['role'] !== 'Admin') {
+    header("HTTP/1.1 404 Not Found");
+    include("../error/error-403.html");
+    exit;
+}
 
 if (isset($_GET["id_penyakit"]) && is_numeric($_GET["id_penyakit"])) {
     $id_penyakit = $_GET["id_penyakit"];
@@ -75,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="page-title mb-3">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Edit Jenis Stroke</h3>
+                            <h3>Edit Jenis Penyakit</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav
@@ -86,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <li class="breadcrumb-item" aria-current="page">
                                         Master Data
                                     </li>
-                                    <li class="breadcrumb-item" aria-current="page">Jenis Stroke</li>
+                                    <li class="breadcrumb-item" aria-current="page">Jenis Penyakit</li>
                                     <li class="breadcrumb-item" aria-current="page">Edit</li>
                                     <li class="breadcrumb-item active" aria-current="page"><?= $penyakit["kode_penyakit"]; ?></li>
                                 </ol>
@@ -101,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">DATA STROKE</h4>
+                                    <h4 class="card-title">DATA PENYAKIT</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
@@ -117,11 +122,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                             placeholder="Kode Stroke" value="<?= $penyakit["kode_penyakit"]; ?>" data-parsley-required="true" />
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <label for="nama_penyakit">Nama Jenis Stroke <span class="text-danger">*</span></label>
+                                                        <label for="nama_penyakit">Nama Jenis Penyakit <span class="text-danger">*</span></label>
                                                     </div>
                                                     <div class="col-md-5 form-group">
                                                         <input type="text" id="nama_penyakit" class="form-control" name="nama_penyakit"
-                                                            placeholder="Nama Jenis Stroke" value="<?= $penyakit["nama_penyakit"]; ?>" data-parsley-required="true" />
+                                                            placeholder="Nama Jenis Penyakit" value="<?= $penyakit["nama_penyakit"]; ?>" data-parsley-required="true" />
                                                     </div>
                                                     <div class="col-md-4">
                                                         <label for="deskripsi">Deskripsi <span class="text-danger">*</span></label>

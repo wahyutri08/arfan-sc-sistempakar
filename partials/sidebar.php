@@ -3,7 +3,7 @@
 $current_page = basename($_SERVER['REQUEST_URI']);
 
 // Halaman-halaman yang berada di dalam Master Data
-$master_data_pages = ['data_pasien', 'gejala', 'jenis_stroke'];
+$master_data_pages = ['data_pasien', 'gejala', 'jenis_stroke', 'rule'];
 $keputusan = ['keputusan'];
 $settings_page = ['profile', 'change_password'];
 
@@ -19,7 +19,7 @@ $user = query("SELECT * FROM users WHERE id = $id")[0];
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="../home"><img src="../assets/static/images/logo/logo2.png" style="width: 80px; height: 80px;" alt="Logo" srcset=""></a>
+                    <a href="../home"><img src="../assets/static/images/logo/logoDinkes.png" style="width: 80px; height: 80px;" alt="Logo" srcset=""></a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -75,12 +75,16 @@ $user = query("SELECT * FROM users WHERE id = $id")[0];
                         <li class="submenu-item <?= ($current_page == 'gejala' ? 'active' : '') ?> ">
                             <a href="../gejala" class="submenu-link">Gejala</a>
                         </li>
-                        <li class="submenu-item <?= ($current_page == 'jenis_stroke' ? 'active' : '') ?> ">
-                            <a href="../jenis_stroke" class="submenu-link">Jenis Stroke</a>
-                        </li>
-                        <li class="submenu-item <?= ($current_page == 'rule' ? 'active' : '') ?> ">
-                            <a href="../rule" class="submenu-link">Rule</a>
-                        </li>
+                        <?php
+                        if ($user['role'] == 'Admin') {
+                            echo '<li class="submenu-item ' . ($current_page == 'jenis_stroke' ? 'active' : '') . '">
+                                    <a href="../jenis_stroke" class="submenu-link">Jenis Penyakit</a>
+                                </li>
+                                <li class="submenu-item ' . ($current_page == 'rule' ? 'active' : '') . '">
+                                    <a href="../rule" class="submenu-link">Rule</a>
+                                </li>';
+                        }
+                        ?>
                     </ul>
                 </li>
                 <li class="sidebar-item <?= (in_array($current_page, $keputusan)) ? 'active' : '' ?> has-sub">

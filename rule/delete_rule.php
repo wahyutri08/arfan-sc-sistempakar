@@ -12,10 +12,9 @@ if ($_SESSION['role'] !== 'Admin') {
     exit;
 }
 
+$id_rule = $_GET["id_rule"];
 
-$id_penyakit = $_GET["id_penyakit"];
-
-if (deletePenyakit($id_penyakit) > 0) {
+if (deleteRule($id_rule) > 0) {
     echo json_encode(['status' => 'success']);
 } else {
     echo json_encode(['status' => 'error']);

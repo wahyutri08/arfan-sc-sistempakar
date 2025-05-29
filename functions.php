@@ -373,6 +373,73 @@ function deletePenyakit($id_penyakit)
     return mysqli_affected_rows($db);
 }
 
+function addRule($data)
+{
+    global $db;
+
+    $kode_rule = mysqli_real_escape_string($db, $data["kode_rule"]);
+    $id_penyakit = mysqli_real_escape_string($db, $data["id_penyakit"]);
+    $id_gejala = mysqli_real_escape_string($db, $data["id_gejala"]);
+    $nilai_mb = mysqli_real_escape_string($db, $data["nilai_mb"]);
+    $nilai_md = mysqli_real_escape_string($db, $data["nilai_md"]);
+
+
+    // Periksa apakah Kode Rule sudah ada di database
+    $query = "SELECT * FROM rule WHERE kode_rule = '$kode_rule'";
+    $result = mysqli_query($db, $query);
+    if (mysqli_fetch_assoc($result)) {
+        // Jika Kode Rule sudah ada, return -1
+        return -1;
+    }
+
+    $query = "INSERT INTO rule 
+        (kode_rule, id_penyakit, id_gejala, nilai_mb, nilai_md)
+        VALUES 
+        ('$kode_rule', '$id_penyakit', '$id_gejala', '$nilai_mb', '$nilai_md')";
+
+    mysqli_query($db, $query);
+    return mysqli_affected_rows($db);
+}
+
+function editRule($data)
+{
+    global $db;
+    $id_rule = $data["id_rule"];
+    $kode_rule = mysqli_real_escape_string($db, $data["kode_rule"]);
+    $id_penyakit = mysqli_real_escape_string($db, $data["id_penyakit"]);
+    $id_gejala = mysqli_real_escape_string($db, $data["id_gejala"]);
+    $nilai_mb = mysqli_real_escape_string($db, $data["nilai_mb"]);
+    $nilai_md = mysqli_real_escape_string($db, $data["nilai_md"]);
+
+    // Periksa apakah kode sudah ada, tetapi abaikan baris yang sedang diedit
+    $query = "SELECT * FROM rule WHERE kode_rule = '$kode_rule' AND id_rule != $id_rule";
+    $result = mysqli_query($db, $query);
+
+    if (mysqli_fetch_assoc($result)) {
+        return -1;
+    }
+
+    $updatedAt = date('Y-m-d H:i:s');
+    // Jika kode tidak ada yang duplikat, lakukan update
+    $query = "UPDATE rule SET kode_rule = '$kode_rule', 
+                     id_penyakit = '$id_penyakit',
+                     id_gejala = '$id_gejala',
+                     nilai_mb = '$nilai_mb',
+                     nilai_md = '$nilai_md',
+                     updated_at = '$updatedAt'
+                      WHERE id_rule = $id_rule";
+    mysqli_query($db, $query);
+
+    return mysqli_affected_rows($db);
+}
+
+function deleteRule($id_rule)
+{
+    global $db;
+    mysqli_query($db, "DELETE FROM rule WHERE id_rule = $id_rule");
+    return mysqli_affected_rows($db);
+}
+
 function upload()
 {
 

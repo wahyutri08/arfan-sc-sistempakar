@@ -7,35 +7,40 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
 }
 
 $id = $_SESSION["id"];
+$id = (int)$id;
 $role = $_SESSION['role'];
 $user = query("SELECT * FROM users WHERE id = $id")[0];
 
 if ($role == 'Admin') {
     $query = query("
-    SELECT 
-        (SELECT COUNT(*) FROM hasil_fuzzy WHERE keterangan = 'Layak') AS total_layak,
-        (SELECT COUNT(*) FROM hasil_fuzzy WHERE keterangan = 'Tidak Layak') AS total_tidak_layak,
-        (SELECT COUNT(*) FROM pasien) AS total_pasien
-");
+        SELECT 
+            (SELECT COUNT(*) FROM gejala) AS total_gejala,
+            (SELECT COUNT(*) FROM penyakit) AS total_penyakit,
+            (SELECT COUNT(*) FROM rule) AS total_rule,
+            (SELECT COUNT(*) FROM pasien) AS total_pasien
+    ");
 } else {
     $query = query("
-    SELECT 
-        (SELECT COUNT(*) FROM hasil_fuzzy WHERE keterangan = 'Layak' AND user_id = $id) AS total_layak,
-        (SELECT COUNT(*) FROM hasil_fuzzy WHERE keterangan = 'Tidak Layak' AND user_id = $id) AS total_tidak_layak,
-        (SELECT COUNT(*) FROM pasien WHERE user_id = $id) AS total_pasien
-");
+        SELECT 
+            (SELECT COUNT(*) FROM gejala) AS total_gejala,
+            (SELECT COUNT(*) FROM penyakit) AS total_penyakit,
+            (SELECT COUNT(*) FROM rule) AS total_rule,
+            (SELECT COUNT(*) FROM pasien WHERE user_id = $id) AS total_pasien
+    ");
 }
 
 
-$totalLayak = $query[0]['total_layak'];
-$totalTidakLayak = $query[0]['total_tidak_layak'];
+
+$totalGejala = $query[0]['total_gejala'];
+$totalPenyakit = $query[0]['total_penyakit'];
+$totalRule = $query[0]['total_rule'];
 $totalPasien = $query[0]['total_pasien'];
 
-if ($role == 'Admin') {
-    $queryHasil = query("SELECT * FROM hasil_fuzzy");
-} else {
-    $queryHasil = query("SELECT * FROM hasil_fuzzy WHERE user_id = $id");
-}
+// if ($role == 'Admin') {
+//     $queryHasil = query("SELECT * FROM hasil_fuzzy");
+// } else {
+//     $queryHasil = query("SELECT * FROM hasil_fuzzy WHERE user_id = $id");
+// }
 
 
 
@@ -77,7 +82,7 @@ if ($role == 'Admin') {
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="../home">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="../dashboard">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                                 </ol>
                             </nav>
@@ -88,52 +93,69 @@ if ($role == 'Admin') {
                     <section class="row">
                         <div class="col-12 col-lg-9">
                             <div class="row">
-                                <div class="col-6 col-lg-4 col-md-6">
+                                <div class="col-6 col-lg-3 col-md-6">
                                     <div class="card">
                                         <div class="card-body px-4 py-4-5">
                                             <div class="row">
-                                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-3 d-flex justify-content-start ">
                                                     <div class="stats-icon purple mb-2">
                                                         <i class="iconly-boldShow"></i>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                    <h6 class="text-muted font-semibold">Jumlah Siswa</h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-8">
+                                                    <h6 class="text-muted font-semibold">Jumlah Pasien</h6>
                                                     <h6 class="font-extrabold mb-0"><?= $totalPasien; ?></h6>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 col-lg-4 col-md-6">
+                                <div class="col-6 col-lg-3 col-md-6">
                                     <div class="card">
                                         <div class="card-body px-4 py-4-5">
                                             <div class="row">
-                                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-3 d-flex justify-content-start ">
                                                     <div class="stats-icon blue mb-2">
                                                         <i class="iconly-boldProfile"></i>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                    <h6 class="text-muted font-semibold">Layak Beasiswa</h6>
-                                                    <h6 class="font-extrabold mb-0"><?= $totalLayak; ?></h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-8">
+                                                    <h6 class="text-muted font-semibold">Total Gejala</h6>
+                                                    <h6 class="font-extrabold mb-0"><?= $totalGejala; ?></h6>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6 col-lg-4 col-md-6">
+                                <div class="col-6 col-lg-3 col-md-6">
                                     <div class="card">
                                         <div class="card-body px-4 py-4-5">
                                             <div class="row">
-                                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-3 d-flex justify-content-start ">
                                                     <div class="stats-icon green mb-2">
                                                         <i class="iconly-boldAdd-User"></i>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                    <h6 class="text-muted font-semibold">Tidak Layak Beasiswa</h6>
-                                                    <h6 class="font-extrabold mb-0"><?= $totalTidakLayak; ?></h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-8">
+                                                    <h6 class="text-muted font-semibold">Total Jenis Stroke</h6>
+                                                    <h6 class="font-extrabold mb-0"><?= $totalPenyakit; ?></h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3 col-md-6">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-3 d-flex justify-content-start ">
+                                                    <div class="stats-icon green mb-2">
+                                                        <i class="iconly-boldAdd-User"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-8">
+                                                    <h6 class="text-muted font-semibold">Total Rule</h6>
+                                                    <h6 class="font-extrabold mb-0"><?= $totalRule; ?></h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -157,7 +179,7 @@ if ($role == 'Admin') {
                             </div>
                         </div>
                     </section>
-                    <div class="row">
+                    <div class="row mt-2">
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 py-2">

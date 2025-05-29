@@ -75,7 +75,7 @@ if (isset($_POST["login"])) {
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <div class="auth-logo">
-                        <a href="index.html" class="h3"><img src="../assets/static/images/logo/logo2.png" alt="Logo" style="width: 80px; height: 80px;"> &nbsp; SISTEM PAKAR</a>
+                        <a href="../login" class="h6"><img src="../assets/static/images/logo/LogoDinkes.png" alt="Logo" style="width: 80px; height: 80px;"> &nbsp; SISTEM PAKAR UNTUK MENDIAGNOSA PENYAKIT SISTEM SARAF PUSAT (STROKE)</a>
                     </div>
                     <h1 class="auth-title">Log in.</h1>
                     <p class="auth-subtitle mb-4">Login in to start your session.</p>
