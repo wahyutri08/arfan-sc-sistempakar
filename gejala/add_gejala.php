@@ -108,13 +108,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                         <input type="text" id="nama_gejala" class="form-control" name="nama_gejala"
                                                             placeholder="Nama Gejala" data-parsley-required="true" />
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <label for="nama_gejala">Nama Gejala <span class="text-danger">*</span></label>
-                                                    </div>
-                                                    <div class="col-md-8 form-group">
-                                                        <input type="text" id="nama_gejala" class="form-control" name="nama_gejala"
-                                                            placeholder="Nama Gejala" data-parsley-required="true" />
-                                                    </div>
                                                     <div class="col-sm-12 d-flex justify-content-end mt-3">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
                                                         <button type="reset"

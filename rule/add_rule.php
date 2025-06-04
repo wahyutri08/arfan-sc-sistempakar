@@ -118,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                             <select class="choices form-select" name="id_penyakit" id="id_penyakit" required>
                                                                 <option value="" disabled selected>Choose One..</option>
                                                                 <?php foreach ($penyakit as $p) : ?>
-                                                                    <option value="<?= $p["id_penyakit"]; ?>"><?= $p["nama_penyakit"]; ?></option>
+                                                                    <option value="<?= $p["id_penyakit"]; ?>">(<?= $p["kode_penyakit"]; ?>) <?= $p["nama_penyakit"]; ?></option>
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </div>
@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                             <select class="choices form-select" name="id_gejala" id="id_gejala" required>
                                                                 <option value="" disabled selected>Choose One..</option>
                                                                 <?php foreach ($gejala as $g) : ?>
-                                                                    <option value="<?= $g["id_gejala"]; ?>"><?= $g["nama_gejala"]; ?></option>
+                                                                    <option value="<?= $g["id_gejala"]; ?>">(<?= $g["kode_gejala"]; ?>) <?= $g["nama_gejala"]; ?></option>
                                                                 <?php endforeach; ?>
                                                             </select>
                                                         </div>
