@@ -72,12 +72,12 @@ $user = query("SELECT * FROM users WHERE id = $id")[0];
                         <li class="submenu-item <?= ($current_page == 'data_pasien' ? 'active' : '') ?> ">
                             <a href="../data_pasien" class="submenu-link">Data Pasien</a>
                         </li>
-                        <li class="submenu-item <?= ($current_page == 'gejala' ? 'active' : '') ?> ">
-                            <a href="../gejala" class="submenu-link">Gejala</a>
-                        </li>
                         <?php
                         if ($user['role'] == 'Admin') {
-                            echo '<li class="submenu-item ' . ($current_page == 'jenis_stroke' ? 'active' : '') . '">
+                            echo '<li class="submenu-item ' . ($current_page == 'gejala' ? 'active' : '') . '">
+                                    <a href="../gejala" class="submenu-link">Gejala</a>
+                                </li>
+                                <li class="submenu-item ' . ($current_page == 'jenis_stroke' ? 'active' : '') . '">
                                     <a href="../jenis_stroke" class="submenu-link">Jenis Penyakit</a>
                                 </li>
                                 <li class="submenu-item ' . ($current_page == 'rule' ? 'active' : '') . '">
@@ -94,7 +94,7 @@ $user = query("SELECT * FROM users WHERE id = $id")[0];
                     </a>
                     <ul class="submenu">
                         <li class="submenu-item <?= ($current_page == 'keputusan' ? 'active' : '') ?>">
-                            <a href="../keputusan" class="submenu-link">Penilaian</a>
+                            <a href="../keputusan" class="submenu-link">Proses Diagnosa</a>
                         </li>
                     </ul>
                 </li>

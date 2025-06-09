@@ -6,6 +6,12 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
     exit;
 }
 
+if ($_SESSION['role'] !== 'Admin') {
+    header("HTTP/1.1 404 Not Found");
+    include("../error/error-403.html");
+    exit;
+}
+
 
 $id_gejala = $_GET["id_gejala"];
 
