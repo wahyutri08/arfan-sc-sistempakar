@@ -475,6 +475,219 @@ function deleteRule($id_rule)
     return mysqli_affected_rows($db);
 }
 
+function hitungDiagnosaStroke($id_pasien, $id_user)
+{
+    global $db;
+
+    $id_pasien = (int) $id_pasien;
+    $id_user = (int) $id_user;
+
+    $query_gejala = mysqli_query($db, "
+        SELECT gp.id_gejala, gp.nilai_bobot, r.nilai_mb, r.nilai_md, r.id_penyakit
+        FROM gejala_pasien gp
+        JOIN rule r ON gp.id_gejala = r.id_gejala
+        WHERE gp.id_pasien = $id_pasien
+    ");
+
+    $cf_values = [];
+    $id_penyakit = '';
+
+    while ($row = mysqli_fetch_assoc($query_gejala)) {
+        $mb = $row['nilai_mb'];
+        $md = $row['nilai_md'];
+        $cf_user = $row['nilai_bobot'];
+        $cf = ($mb - $md) * $cf_user;
+        $cf_values[] = $cf;
+        $id_penyakit = $row['id_penyakit'];
+    }
+
+    if (count($cf_values) === 0) {
+        return ['status' => false, 'message' => 'Data gejala tidak ditemukan'];
+    }
+
+    $cf_combine = $cf_values[0];
+    for ($i = 1; $i < count($cf_values); $i++) {
+        $cf_combine = $cf_combine + $cf_values[$i] * (1 - $cf_combine);
+    }
+
+    // Optional: Batas maksimum CF 30%
+    // $cf_combine = min($cf_combine, 0.3);
+
+    $pasien = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM pasien WHERE id_pasien = $id_pasien"));
+    $penyakit = mysqli_fetch_assoc(mysqli_query($db, "SELECT * FROM penyakit WHERE id_penyakit = $id_penyakit"));
+
+    if (!$pasien || !$penyakit) {
+        return ['status' => false, 'message' => 'Data pasien atau penyakit tidak ditemukan'];
+    }
+
+    $nama_pasien = $pasien['nama_pasien'];
+    $kode_penyakit = $penyakit['kode_penyakit'];
+    $nama_penyakit = $penyakit['nama_penyakit'];
+    $keterangan = $penyakit['deskripsi'];
+
+    mysqli_query($db, "
+        INSERT INTO hasil_diagnosa (user_id, id_pasien, nama_pasien, kode_penyakit, nilai_cf, diagnosa, keterangan)
+        VALUES ($id_user, $id_pasien, '$nama_pasien', '$kode_penyakit', $cf_combine, '$nama_penyakit', '$keterangan')
+    ");
+
+    return [
+        'status' => true,
+        'cf' => $cf_combine,
+        'diagnosa' => $nama_penyakit,
+        'persentase' => round($cf_combine * 100, 2)
+    ];
+}
+
+
+// function hitungDiagnosaStroke($id_pasien, $id_user)
+// {
+//     global $db;
+
+//     $id_pasien = (int) $id_pasien;
+//     $id_user = (int) $id_user;
+
+//     // ❗ Cek apakah pasien sudah pernah didiagnosa
+//     // $cek = mysqli_query($db, "SELECT * FROM hasil_diagnosa WHERE id_pasien = $id_pasien");
+//     // if (mysqli_num_rows($cek) > 0) {
+//     //     // return ['status' => false, 'message' => 'Pasien sudah memiliki hasil diagnosa'];
+//     //     return -2;
+//     // }
+
+//     // Ambil data gejala pasien dan rule
+//     $query_gejala = mysqli_query($db, "
+//         SELECT gp.id_gejala, gp.nilai_bobot, r.nilai_mb, r.nilai_md, r.id_penyakit
+//         FROM gejala_pasien gp
+//         JOIN rule r ON gp.id_gejala = r.id_gejala
+//         WHERE gp.id_pasien = $id_pasien
+//     ");
+
+//     $cf_values = [];
+//     $id_penyakit = '';
+
+//     while ($row = mysqli_fetch_assoc($query_gejala)) {
+//         $mb = $row['nilai_mb'];
+//         $md = $row['nilai_md'];
+//         $cf_user = $row['nilai_bobot'];
+//         $cf = ($mb - $md) * $cf_user;
+//         $cf_values[] = $cf;
+//         $id_penyakit = $row['id_penyakit'];
+//     }
+
+//     if (count($cf_values) === 0) {
+//         // return ['status' => false, 'message' => 'Data gejala tidak ditemukan'];
+//         return -3;
+//     }
+
+//     // Hitung CF Combine
+//     $cf_combine = $cf_values[0];
+//     for ($i = 1; $i < count($cf_values); $i++) {
+//         $cf_combine = $cf_combine + $cf_values[$i] * (1 - $cf_combine);
+//     }
+
+//     // Ambil data pasien
+//     $pasien_q = mysqli_query($db, "SELECT * FROM pasien WHERE id_pasien = $id_pasien");
+//     $penyakit_q = mysqli_query($db, "SELECT * FROM penyakit WHERE id_penyakit = $id_penyakit");
+
+//     if (!$pasien_q || !$penyakit_q) {
+//         // return ['status' => false, 'message' => 'Data pasien atau penyakit tidak ditemukan'];
+//         return -4;
+//     }
+
+//     $pasien = mysqli_fetch_assoc($pasien_q);
+//     $penyakit = mysqli_fetch_assoc($penyakit_q);
+
+//     $nama_pasien = $pasien['nama_pasien'];
+//     $kode_penyakit = $penyakit['kode_penyakit'];
+//     $nama_penyakit = $penyakit['nama_penyakit'];
+//     $keterangan = $penyakit['deskripsi'];
+
+//     // Simpan hasil ke tabel hasil_diagnosa
+//     mysqli_query($db, "
+//         INSERT INTO hasil_diagnosa (user_id, id_pasien, nama_pasien, kode_penyakit, nilai_cf, diagnosa, keterangan)
+//         VALUES ($id_user, $id_pasien, '$nama_pasien', '$kode_penyakit', $cf_combine, '$nama_penyakit', '$keterangan')
+//     ");
+
+//     return [
+//         'status' => true,
+//         'cf' => $cf_combine,
+//         'diagnosa' => $nama_penyakit,
+//         'persentase' => round($cf_combine * 100, 2)
+//     ];
+// }
+
+// function hitungDiagnosaStroke($id_pasien, $id_user)
+// {
+//     global $db;
+
+//     $id_pasien = (int) $id_pasien;
+//     $id_user = (int) $id_user;
+
+//     // Ambil data gejala dan rule
+//     $query_gejala = mysqli_query($db, "
+//         SELECT gp.id_gejala, gp.nilai_bobot, r.nilai_mb, r.nilai_md, r.id_penyakit
+//         FROM gejala_pasien gp
+//         JOIN rule r ON gp.id_gejala = r.id_gejala
+//         WHERE gp.id_pasien = $id_pasien
+//     ");
+
+//     $cf_values = [];
+//     $id_penyakit = '';
+
+//     while ($row = mysqli_fetch_assoc($query_gejala)) {
+//         $mb = $row['nilai_mb'];
+//         $md = $row['nilai_md'];
+//         $cf_user = $row['nilai_bobot'];
+//         $cf = ($mb - $md) * $cf_user;
+//         $cf_values[] = $cf;
+//         $id_penyakit = $row['id_penyakit'];
+//     }
+
+//     if (count($cf_values) === 0) {
+//         return -3; // Gejala tidak ditemukan
+//     }
+
+//     // Hitung CF Combine
+//     $cf_combine = $cf_values[0];
+//     for ($i = 1; $i < count($cf_values); $i++) {
+//         $cf_combine = $cf_combine + $cf_values[$i] * (1 - $cf_combine);
+//     }
+
+//     // Ambil data pasien dan penyakit
+//     $pasien_q = mysqli_query($db, "SELECT * FROM pasien WHERE id_pasien = $id_pasien");
+//     $penyakit_q = mysqli_query($db, "SELECT * FROM penyakit WHERE id_penyakit = $id_penyakit");
+
+//     if (!$pasien_q || !$penyakit_q) {
+//         return -4; // Data tidak ditemukan
+//     }
+
+//     $pasien = mysqli_fetch_assoc($pasien_q);
+//     $penyakit = mysqli_fetch_assoc($penyakit_q);
+
+//     $nama_pasien = $pasien['nama_pasien'];
+//     $kode_penyakit = $penyakit['kode_penyakit'];
+//     $nama_penyakit = $penyakit['nama_penyakit'];
+//     $keterangan = $penyakit['deskripsi'];
+
+//     // REPLACE INTO akan insert jika belum ada, dan update jika sudah ada
+//     $replace = mysqli_query($db, "
+//         REPLACE INTO hasil_diagnosa (
+//             user_id, id_pasien, nama_pasien, kode_penyakit, nilai_cf, diagnosa, keterangan
+//         ) VALUES (
+//             $id_user, $id_pasien, '$nama_pasien', '$kode_penyakit', $cf_combine, '$nama_penyakit', '$keterangan'
+//         )
+//     ");
+
+//     if ($replace) {
+//         return 1; // Berhasil
+//     } else {
+//         return -5; // Gagal simpan
+//     }
+// }
+
+
+
+
+
 function upload()
 {
 

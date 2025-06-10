@@ -146,42 +146,28 @@ $jumlahData = count($d_pasien);
     <script src="../assets/extensions/apexcharts/apexcharts.min.js"></script>
     <script>
         $(document).ready(function() {
-            $(document).on('click', '.tombol-hapus', function(e) {
+            $('#proses').on('click', function(e) {
                 e.preventDefault();
-                const href = $(this).attr('href');
 
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "This Data Will Be Deleted!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: href,
-                            type: 'GET',
-                            success: function(response) {
-                                let res = JSON.parse(response);
-                                if (res.status === 'success') {
-                                    Swal.fire({
-                                        title: 'Deleted!',
-                                        text: 'Data Successfully Deleted',
-                                        icon: 'success',
-                                        showConfirmButton: true,
-                                    }).then(() => {
-                                        location.reload(); // atau reload DataTable ajax jika pakai ajax
-                                    });
-                                } else {
-                                    Swal.fire('Error', 'Gagal menghapus data', 'error');
-                                }
-                            },
-                            error: function() {
-                                Swal.fire('Error', 'Terjadi kesalahan server', 'error');
-                            }
-                        });
+                $.ajax({
+                    url: 'proses_diagnosa.php',
+                    method: 'POST',
+                    success: function(response) {
+                        response = JSON.parse(response);
+                        if (response.status === 'success') {
+                            Swal.fire({
+                                title: "Success",
+                                text: response.message,
+                                icon: "success"
+                            }).then(() => {
+                                window.location.href = '../hasil_fuzzy';
+                            });
+                        } else {
+                            Swal.fire('Error', response.message, 'error');
+                        }
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Terjadi kesalahan pada server', 'error');
                     }
                 });
             });

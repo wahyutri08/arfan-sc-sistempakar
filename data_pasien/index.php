@@ -71,11 +71,7 @@ $jumlahData = count($d_pasien);
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                <?php
-                                if ($role == 'Perawat') {
-                                    echo '<a href="add_pasien.php" class="btn icon icon-left btn-primary"><i class="fa fa-plus"></i> Tambah Pasien</a>';
-                                }
-                                ?>
+                                <a href="add_pasien.php" class="btn icon icon-left btn-primary"><i class="fa fa-plus"></i> Tambah Pasien</a>
                             </h5>
                         </div>
                         <div class="card-body">

@@ -6,12 +6,6 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
     exit;
 }
 
-if ($_SESSION["role"] !== 'Perawat') {
-    header("HTTP/1.1 404 Not Found");
-    include("../error/error-403.html");
-    exit;
-}
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = addpasien($_POST);
     if ($result > 0) {
