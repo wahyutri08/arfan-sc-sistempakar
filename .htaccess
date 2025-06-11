@@ -2,7 +2,13 @@
 
 Options -Indexes
 
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+
 # Custom error pages
+
 
 ErrorDocument 403 /error/error-403.html
 ErrorDocument 404 error/error-404.html

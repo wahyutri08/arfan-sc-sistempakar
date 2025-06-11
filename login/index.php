@@ -41,13 +41,13 @@ if (isset($_POST["login"])) {
                 header("Location: ../dashboard");
                 exit;
             } else {
-                $error = 'Password Salah.';
+                $error = 'Wrong Password.';
             }
         } else {
-            $error = 'Akun Anda Tidak Aktif. Silakan Hubungi Admin.';
+            $error = 'Your Account is Inactive. Please Contact Admin.';
         }
     } else {
-        $error = 'Username atau Email tidak ditemukan.';
+        $error = 'Username or Email Not Found.';
     }
 }
 ?>
@@ -74,20 +74,21 @@ if (isset($_POST["login"])) {
         <div class="row h-100">
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
-                    <div class="auth-logo">
-                        <a href="../login" class="h6"><img src="../assets/static/images/logo/LogoDinkes.png" alt="Logo" style="width: 80px; height: 80px;"> &nbsp; SISTEM PAKAR UNTUK MENDIAGNOSA PENYAKIT SISTEM SARAF PUSAT (STROKE)</a>
+                    <div class="text-center">
+                        <a href="../login"><img src="../assets/static/images/logo/LogoDinkes.png" alt="Logo" style="width: 120px; height: 120px;"></a>
+                        <h3 class="auth-subtitle mt-3">SISTEM PAKAR UNTUK MENDIAGNOSA PENYAKIT SISTEM SARAF PUSAT (STROKE)</h3>
                     </div>
-                    <h1 class="auth-title">Log in.</h1>
+                    <h1 class="auth-title mt-5">Log in.</h1>
                     <p class="auth-subtitle mb-4">Login in to start your session.</p>
-                    <form action="" method="POST">
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="text" id="username" name="username" class="form-control form-control-xl" placeholder="Username" required>
+                    <form action="" method="POST" class="form" data-parsley-validate id="myForm">
+                        <div class="form-group position-relative has-icon-left mb-4 mandatory">
+                            <input type="text" id="username" name="username" class="form-control form-control-xl" placeholder="Username" data-parsley-required="true">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input type="password" id="password" name="password" class="form-control form-control-xl" placeholder="Password" required>
+                        <div class="form-group position-relative has-icon-left mb-4 mandatory">
+                            <input type="password" id="password" name="password" class="form-control form-control-xl" placeholder="Password" data-parsley-required="true">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
@@ -104,6 +105,15 @@ if (isset($_POST["login"])) {
         </div>
 
     </div>
+
+    <script src="../assets/extensions/jquery/jquery.min.js"></script>
+    <script src="../assets/static/js/components/dark.js"></script>
+    <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../assets/compiled/js/app.js"></script>
+    <script src="../assets/extensions/parsleyjs/parsley.min.js"></script>
+    <script src="../assets/static/js/pages/parsley.js"></script>
+    <script src="../assets/extensions/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../assets/static/js/pages/sweetalert2.js"></script>
 </body>
 <script>
     // Cegah pengguna kembali ke halaman login dengan tombol back browser
@@ -115,6 +125,18 @@ if (isset($_POST["login"])) {
     window.onpageshow = function(evt) {
         if (evt.persisted) noBack();
     }
+</script>
+<script>
+    // SweetAlert
+    <?php if (!empty($error)) : ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: '<?= $error ?>',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#d33'
+        });
+    <?php endif; ?>
 </script>
 
 

@@ -100,10 +100,10 @@ $user = query("SELECT * FROM users WHERE id = $id")[0];
                 </li>
 
                 <li class="sidebar-title">Laporan</li>
-                <li class="sidebar-item">
-                    <a href="index.html" class='sidebar-link'>
+                <li class="sidebar-item <?= ($current_page == 'hasil_diagnosa' ? 'active' : '') ?>">
+                    <a href="../hasil_diagnosa" class='sidebar-link'>
                         <i class="fa fa-file-invoice"></i>
-                        <span>Laporan Hasil Analisa</span>
+                        <span>Laporan Hasil Diagnosa</span>
                     </a>
                 </li>
                 <li class="sidebar-title">Setting</li>

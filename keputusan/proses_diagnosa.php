@@ -33,5 +33,5 @@ while ($row = mysqli_fetch_assoc($query)) {
 
 echo "<script>
     alert('Diagnosa selesai. Berhasil: $jumlah_berhasil pasien, Gagal: $jumlah_gagal pasien');
-    window.location='hasil_diagnosa.php';
+    window.location='../hasil_diagnosa';
 </script>";

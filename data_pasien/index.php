@@ -109,7 +109,7 @@ $jumlahData = count($d_pasien);
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
                                                         <a class="dropdown-item" href="edit_pasien.php?id_pasien=<?= $pasien["id_pasien"]; ?>">Edit Data Pasien</a>
-                                                        <a class="dropdown-item" href="gejala_pasien.php?id_pasien=<?= $pasien["id_pasien"]; ?>">Input / Edit Gejala Pasien</a>
+                                                        <a class="dropdown-item" href="pasien.php?id_pasien=<?= $pasien["id_pasien"]; ?>">Input / Edit Gejala Pasien</a>
                                                         <a class="dropdown-item tombol-hapus" href="delete_pasien.php?id_pasien=<?= $pasien["id_pasien"]; ?>">Delete</a>
                                                     </div>
                                                 </div>
