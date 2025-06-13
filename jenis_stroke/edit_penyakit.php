@@ -164,18 +164,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-
-
     <script src="../assets/compiled/js/app.js"></script>
-
-
-
     <script src="../assets/extensions/jquery/jquery.min.js"></script>
     <script src="../assets/extensions/parsleyjs/parsley.min.js"></script>
     <script src="../assets/static/js/pages/parsley.js"></script>
     <script src="../assets/extensions/sweetalert2/sweetalert2.min.js"></script>
     <script src="../assets/static/js/pages/sweetalert2.js"></script>
-
+    <script src="../assets/static/js/logoutsweetalert.js"></script>
     <script>
         $(document).ready(function() {
             $('#myForm').on('submit', function(e) {

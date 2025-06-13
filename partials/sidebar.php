@@ -130,7 +130,7 @@ $user = query("SELECT * FROM users WHERE id = $id")[0];
                     </li>
                 <?php endif; ?>
                 <li class="sidebar-item">
-                    <a href="../logout" class='sidebar-link'>
+                    <a href="../logout" class="sidebar-link tombol-logout">
                         <i class="fa fa-sign-out-alt"></i>
                         <span>Logout</span>
                     </a>

@@ -81,7 +81,7 @@ $jumlahData = count($d_pasien);
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title d-flex justify-content-center mt-3">
-                                <a href="proses_diagnosa.php" class="btn btn-lg icon icon-left btn-warning">
+                                <a href="proses_diagnosa.php" class="btn btn-lg icon icon-left btn-warning" id="proses">
                                     <i class="fa fa-cogs me-2"></i> Proses Diagnosa
                                 </a>
                             </h5>
@@ -144,6 +144,7 @@ $jumlahData = count($d_pasien);
     <script src="../assets/static/js/pages/sweetalert2.js"></script>
     <!-- Need: Apexcharts -->
     <script src="../assets/extensions/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets/static/js/logoutsweetalert.js"></script>
     <script>
         $(document).ready(function() {
             $('#proses').on('click', function(e) {
@@ -160,7 +161,7 @@ $jumlahData = count($d_pasien);
                                 text: response.message,
                                 icon: "success"
                             }).then(() => {
-                                window.location.href = '../hasil_fuzzy';
+                                window.location.href = '../hasil_diagnosa';
                             });
                         } else {
                             Swal.fire('Error', response.message, 'error');

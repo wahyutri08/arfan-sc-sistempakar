@@ -85,7 +85,7 @@ $jumlahData = count($d_pasien);
                                         <th>Tanggal Lahir</th>
                                         <th>Usia</th>
                                         <th>Alamat</th>
-                                        <th>No HP</th>
+                                        <th>Phone</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -137,6 +137,8 @@ $jumlahData = count($d_pasien);
     <script src="../assets/static/js/pages/sweetalert2.js"></script>
     <!-- Need: Apexcharts -->
     <script src="../assets/extensions/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets/static/js/logoutsweetalert.js"></script>
+
     <script>
         $(document).ready(function() {
             $(document).on('click', '.tombol-hapus', function(e) {

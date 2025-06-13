@@ -139,6 +139,7 @@ $users = query("SELECT * FROM users");
     <script src="../assets/static/js/pages/sweetalert2.js"></script>
     <!-- Need: Apexcharts -->
     <script src="../assets/extensions/apexcharts/apexcharts.min.js"></script>
+    <script src="../assets/static/js/logoutsweetalert.js"></script>
     <!-- <script src="../assets/static/js/pages/dashboard.js"></script> -->
 
     <script>

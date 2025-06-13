@@ -9,64 +9,38 @@ if (!isset($_SESSION["login"]) || $_SESSION["login"] !== true) {
 $user_id = $_SESSION['id'];
 $role = $_SESSION['role'];
 
-if (isset($_GET["id_hasil"]) && is_numeric($_GET["id_hasil"])) {
-    $id_hasil = $_GET["id_hasil"];
+if (isset($_GET["id_pasien"]) && is_numeric($_GET["id_pasien"])) {
+    $id_pasien = $_GET["id_pasien"];
 } else {
     header("HTTP/1.1 404 Not Found");
     include("../error/error-404.html");
     exit;
 }
-
-$id_hasil = (int)$id_hasil;
-$user_id = (int)$user_id;
 
 
 if ($role == 'Admin') {
-    $hasil = query("
-        SELECT 
-            h.*, 
-            ps.nik, ps.jenis_kelamin, ps.tanggal_lahir, ps.usia, ps.alamat, ps.no_hp,
-            GROUP_CONCAT(CONCAT(g.nama_gejala, ' (', gp.nilai_bobot, ')') SEPARATOR ', ') AS daftar_gejala
-        FROM hasil_diagnosa h
-        JOIN pasien ps ON h.id_pasien = ps.id_pasien
-        LEFT JOIN gejala_pasien gp ON gp.id_pasien = ps.id_pasien
-        LEFT JOIN gejala g ON gp.id_gejala = g.id_gejala
-        WHERE h.id_hasil = $id_hasil
-        GROUP BY h.id_hasil
-    ");
+    $pasien = query("SELECT * FROM pasien WHERE id_pasien = $id_pasien");
 } else {
-    $hasil = query("
-        SELECT 
-            h.*, 
-            ps.nik, ps.jenis_kelamin, ps.tanggal_lahir, ps.usia, ps.alamat, ps.no_hp,
-            GROUP_CONCAT(CONCAT(g.nama_gejala, ' (', gp.nilai_bobot, ')') SEPARATOR ', ') AS daftar_gejala
-        FROM hasil_diagnosa h
-        JOIN pasien ps ON h.id_pasien = ps.id_pasien
-        LEFT JOIN gejala_pasien gp ON gp.id_pasien = ps.id_pasien
-        LEFT JOIN gejala g ON gp.id_gejala = g.id_gejala
-        WHERE h.id_hasil = $id_hasil AND h.user_id = $user_id
-        GROUP BY h.id_hasil
-    ");
+    $pasien = query("SELECT * FROM pasien WHERE id_pasien = $id_pasien AND user_id = $user_id");
 }
 
 
-
-if (empty($hasil)) {
+if (empty($pasien)) {
     header("HTTP/1.1 404 Not Found");
     include("../error/error-404.html");
     exit;
 }
-$hasil = $hasil[0];
-
-
+$pasien = $pasien[0];
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $hasil["nama_pasien"] ?> - Detail Hasil Diagnosa</title>
+    <title><?= $pasien["nama_pasien"] ?> - Data Pasien</title>
 
     <link rel="stylesheet" href="../assets/extensions/choices.js/public/assets/styles/choices.css">
     <link rel="shortcut icon" href="../assets/compiled/svg/favicon.svg" type="image/x-icon">
@@ -278,6 +252,7 @@ $hasil = $hasil[0];
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/compiled/js/app.js"></script>
+
     <script src="../assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
     <script src="../assets/static/js/pages/simple-datatables.js"></script>
     <script src="../assets/extensions/parsleyjs/parsley.min.js"></script>
@@ -285,8 +260,8 @@ $hasil = $hasil[0];
     <script src="../assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script src="../assets/static/js/pages/form-element-select.js"></script>
     <script src="../assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+    <script src="../assets/static/js/pages/sweetalert2.js"></script>
     <script src="../assets/static/js/logoutsweetalert.js"></script>
-
     <script>
         $(document).ready(function() {
             $(document).on('click', '.tombol-hapus', function(e) {

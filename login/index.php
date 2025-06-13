@@ -113,7 +113,6 @@ if (isset($_POST["login"])) {
     <script src="../assets/extensions/parsleyjs/parsley.min.js"></script>
     <script src="../assets/static/js/pages/parsley.js"></script>
     <script src="../assets/extensions/sweetalert2/sweetalert2.all.min.js"></script>
-    <script src="../assets/static/js/pages/sweetalert2.js"></script>
 </body>
 <script>
     // Cegah pengguna kembali ke halaman login dengan tombol back browser

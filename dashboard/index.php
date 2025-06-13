@@ -200,13 +200,16 @@ $totalPasien = $query[0]['total_pasien'];
             <!-- End Footer -->
         </div>
     </div>
+    <script src="../assets/extensions/jquery/jquery.min.js"></script>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/compiled/js/app.js"></script>
+    <script src="../assets/extensions/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../assets/static/js/pages/sweetalert2.js"></script>
     <!-- Need: Apexcharts -->
     <script src="../assets/extensions/apexcharts/apexcharts.min.js"></script>
     <script src="../assets/static/js/pages/dashboard.js"></script>
-
+    <script src="../assets/static/js/logoutsweetalert.js"></script>
 </body>
 
 </html>

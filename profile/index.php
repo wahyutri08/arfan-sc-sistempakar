@@ -188,10 +188,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="../assets/static/js/pages/parsley.js"></script>
     <script src="../assets/extensions/sweetalert2/sweetalert2.min.js"></script>
     <script src="../assets/static/js/pages/sweetalert2.js"></script>>
-
     <!-- Need: Apexcharts -->
     <script src="../assets/extensions/apexcharts/apexcharts.min.js"></script>
     <script src="../assets/static/js/pages/dashboard.js"></script>
+    <script src="../assets/static/js/logoutsweetalert.js"></script>
 
     <script>
         $(document).ready(function() {

@@ -230,6 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="../assets/static/js/pages/parsley.js"></script>
     <script src="../assets/extensions/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../assets/static/js/pages/sweetalert2.js"></script>
+    <script src="../assets/static/js/logoutsweetalert.js"></script>
 
     <!-- Tambah & Hapus Gejala -->
     <script>

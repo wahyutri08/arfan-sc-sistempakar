@@ -163,7 +163,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                             name="tanggal_lahir"
                                                             value="<?= $pasien["tanggal_lahir"]; ?>"
                                                             placeholder="Tanggal Lahir"
-                                                            data-parsley-required="true" />
+                                                            data-parsley-required="true"
+                                                            onchange="hitungUsia()" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
@@ -176,12 +177,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                             name="usia"
                                                             placeholder="Usia"
                                                             value="<?= $pasien["usia"]; ?>"
-                                                            data-parsley-required="true" />
+                                                            data-parsley-required="true"
+                                                            readonly />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-12">
                                                     <div class="form-group mandatory">
-                                                        <label for="no_hp" class="form-label">No Telepon</label>
+                                                        <label for="no_hp" class="form-label">Phone</label>
                                                         <input
                                                             type="text"
                                                             id="no_hp"
@@ -238,7 +240,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="../assets/static/js/pages/parsley.js"></script>
     <script src="../assets/extensions/sweetalert2/sweetalert2.min.js"></script>>
     <script src="../assets/static/js/pages/sweetalert2.js"></script>>
+    <script src="../assets/static/js/logoutsweetalert.js"></script>
 
+    <script>
+        function hitungUsia() {
+            const tanggalLahir = document.getElementById('tanggal_lahir').value;
+            const usiaInput = document.getElementById('usia');
+
+            if (tanggalLahir) {
+                const lahir = new Date(tanggalLahir);
+                const hariIni = new Date();
+
+                let usia = hariIni.getFullYear() - lahir.getFullYear();
+                const bulan = hariIni.getMonth() - lahir.getMonth();
+                const hari = hariIni.getDate() - lahir.getDate();
+
+                // Kurangi usia jika belum lewat ulang tahun di tahun ini
+                if (bulan < 0 || (bulan === 0 && hari < 0)) {
+                    usia--;
+                }
+
+                usiaInput.value = usia;
+            } else {
+                usiaInput.value = '';
+            }
+        }
+    </script>
     <script>
         $(document).ready(function() {
             $('#myForm').on('submit', function(e) {

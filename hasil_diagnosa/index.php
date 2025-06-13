@@ -247,15 +247,15 @@ if ($role == 'Admin') {
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/compiled/js/app.js"></script>
-
     <script src="../assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
     <script src="../assets/static/js/pages/simple-datatables.js"></script>
     <script src="../assets/extensions/parsleyjs/parsley.min.js"></script>
     <script src="../assets/static/js/pages/parsley.js"></script>
     <script src="../assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script src="../assets/static/js/pages/form-element-select.js"></script>
-    <script src="../assets/extensions/sweetalert2/sweetalert2.min.js"></script>
-    <script src="../assets/static/js/pages/sweetalert2.js"></script>
+    <script src="../assets/extensions/sweetalert2/sweetalert2.all.min.js"></script>
+    <script src="../assets/static/js/logoutsweetalert.js"></script>
+
     <script>
         $(document).ready(function() {
             $(document).on('click', '.tombol-hapus', function(e) {
@@ -299,7 +299,6 @@ if ($role == 'Admin') {
             });
         });
     </script>
-
 </body>
 
 </html>
