@@ -112,7 +112,7 @@ if ($role == 'Admin') {
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="../home">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="../dashboard">Home</a></li>
                                     <li class="breadcrumb-item">Laporan</li>
                                     <li class="breadcrumb-item active" aria-current="page"><a href="">Laporan Hasil Diagnosa</a></li>
                                 </ol>

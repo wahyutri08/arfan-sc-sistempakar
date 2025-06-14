@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="../home">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="../dashboard">Home</a></li>
                                     <li class="breadcrumb-item" aria-current="page">Setting</li>
                                     <li class="breadcrumb-item" aria-current="page">Profile</li>
                                     <li class="breadcrumb-item active" aria-current="page"><?= $user["nama"]; ?></li>

@@ -24,6 +24,14 @@ if ($role == 'Admin') {
     $pasien = query("SELECT * FROM pasien WHERE id_pasien = $id_pasien AND user_id = $user_id");
 }
 
+$gejala_pasien = query("
+    SELECT 
+        gejala_pasien.*, 
+        gejala.kode_gejala,
+        gejala.nama_gejala 
+    FROM gejala_pasien
+    JOIN gejala ON gejala_pasien.id_gejala = gejala.id_gejala WHERE id_pasien = $id_pasien
+");
 
 if (empty($pasien)) {
     header("HTTP/1.1 404 Not Found");
@@ -69,15 +77,15 @@ $pasien = $pasien[0];
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last mb-2">
-                            <h3>Detail Hasil Diagnosa</h3>
+                            <h3>Detail Data Pasien</h3>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="../home">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="../dashboard">Home</a></li>
                                     <li class="breadcrumb-item">Laporan</li>
-                                    <li class="breadcrumb-item" aria-current="page">Detail Hasil Diagnosa</li>
-                                    <li class="breadcrumb-item active" aria-current="page"><a href=""><?= $hasil["nama_pasien"] ?></a></li>
+                                    <li class="breadcrumb-item" aria-current="page">Detail Data pasien</li>
+                                    <li class="breadcrumb-item active" aria-current="page"><a href=""><?= $pasien["nama_pasien"] ?></a></li>
                                 </ol>
                             </nav>
                         </div>
@@ -100,7 +108,7 @@ $pasien = $pasien[0];
                                                     id="nama_pasien"
                                                     class="form-control"
                                                     name="nama_pasien"
-                                                    value="<?= $hasil["nama_pasien"] ?>" readonly />
+                                                    value="<?= $pasien["nama_pasien"] ?>" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-12">
@@ -111,7 +119,7 @@ $pasien = $pasien[0];
                                                     id="nik"
                                                     class="form-control"
                                                     name="nik"
-                                                    value="<?= $hasil["nik"] ?>" readonly />
+                                                    value="<?= $pasien["nik"] ?>" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-12">
@@ -122,7 +130,7 @@ $pasien = $pasien[0];
                                                     id="jenis_kelamin"
                                                     class="form-control"
                                                     name="jenis_kelamin"
-                                                    value="<?= $hasil["jenis_kelamin"] ?>" readonly />
+                                                    value="<?= $pasien["jenis_kelamin"] ?>" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-12">
@@ -133,7 +141,7 @@ $pasien = $pasien[0];
                                                     id="tanggal_lahir"
                                                     class="form-control"
                                                     name="tanggal_lahir"
-                                                    value="<?= $hasil["tanggal_lahir"] ?>" readonly />
+                                                    value="<?= $pasien["tanggal_lahir"] ?>" readonly />
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +154,7 @@ $pasien = $pasien[0];
                                                     id="usia"
                                                     class="form-control"
                                                     name="usia"
-                                                    value="<?= $hasil["usia"] ?>" readonly />
+                                                    value="<?= $pasien["usia"] ?>" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-12">
@@ -157,7 +165,7 @@ $pasien = $pasien[0];
                                                     id="alamat"
                                                     class="form-control"
                                                     name="alamat"
-                                                    value="<?= $hasil["alamat"] ?>" readonly />
+                                                    value="<?= $pasien["alamat"] ?>" readonly />
                                             </div>
                                         </div>
                                         <div class="col-md-3 col-12">
@@ -168,7 +176,7 @@ $pasien = $pasien[0];
                                                     id="no_hp"
                                                     class="form-control"
                                                     name="no_hp"
-                                                    value="<?= $hasil["no_hp"] ?>" readonly />
+                                                    value="<?= $pasien["no_hp"] ?>" readonly />
                                             </div>
                                         </div>
                                     </div>
@@ -180,7 +188,7 @@ $pasien = $pasien[0];
                 <section class="section">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Riwayat Gejala Pasien</h3>
+                            <h3 class="card-title">Gejala Pasien</h3>
                         </div>
                         <div class="card-body">
                             <table class="table table-striped" id="">
@@ -192,51 +200,13 @@ $pasien = $pasien[0];
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    $gejalaList = explode(', ', $hasil["daftar_gejala"]);
-                                    $no = 1;
-
-                                    foreach ($gejalaList as $item):
-                                        if (preg_match('/^(.*)\s\(([\d.]+)\)$/', $item, $matches)):
-                                            $namaGejala = trim($matches[1]);
-                                            $nilaiBobot = trim($matches[2]);
-                                    ?>
-                                            <tr>
-                                                <td><?= $no++; ?></td>
-                                                <td><?= htmlspecialchars($namaGejala); ?></td>
-                                                <td><?= htmlspecialchars($nilaiBobot); ?></td>
-                                            </tr>
-                                    <?php
-                                        endif;
-                                    endforeach;
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-                <section class="section">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Hasil Diagnosa</h3>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-striped" id="">
-                                <thead>
-                                    <tr>
-                                        <th>Tanggal Diagnosa</th>
-                                        <th>Diagnosa Penyakit</th>
-                                        <th>Persentase Diagnosa</th>
-                                        <th>Keterangan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><?= $hasil["tanggal_diagnosa"] ?></td>
-                                        <td><?= $hasil["diagnosa"] ?></td>
-                                        <td><?= round($hasil["nilai_cf"] * 100, 2) ?>%</td>
-                                        <td><?= $hasil["keterangan"] ?></td>
-                                    </tr>
+                                    <?php foreach ($gejala_pasien as $i => $gp) : ?>
+                                        <tr>
+                                            <td><?= $i + 1;  ?></td>
+                                            <td>(<?= $gp["kode_gejala"]; ?>) <?= $gp["nama_gejala"]; ?></td>
+                                            <td><?= $gp["nilai_bobot"]; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -262,49 +232,6 @@ $pasien = $pasien[0];
     <script src="../assets/extensions/sweetalert2/sweetalert2.min.js"></script>
     <script src="../assets/static/js/pages/sweetalert2.js"></script>
     <script src="../assets/static/js/logoutsweetalert.js"></script>
-    <script>
-        $(document).ready(function() {
-            $(document).on('click', '.tombol-hapus', function(e) {
-                e.preventDefault();
-                const href = $(this).attr('href');
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "This Data Will Be Deleted!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: href,
-                            type: 'GET',
-                            success: function(response) {
-                                let res = JSON.parse(response);
-                                if (res.status === 'success') {
-                                    Swal.fire({
-                                        title: 'Deleted!',
-                                        text: 'Data Successfully Deleted',
-                                        icon: 'success',
-                                        showConfirmButton: true,
-                                    }).then(() => {
-                                        location.reload(); // atau reload DataTable ajax jika pakai ajax
-                                    });
-                                } else {
-                                    Swal.fire('Error', 'Gagal menghapus data', 'error');
-                                }
-                            },
-                            error: function() {
-                                Swal.fire('Error', 'Terjadi kesalahan server', 'error');
-                            }
-                        });
-                    }
-                });
-            });
-        });
-    </script>
 
 </body>
 

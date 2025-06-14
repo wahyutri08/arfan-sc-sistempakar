@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 aria-label="breadcrumb"
                                 class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="../home">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="../dashboard">Dashboard</a></li>
                                     <li class="breadcrumb-item" aria-current="page">
                                         Master Data
                                     </li>
