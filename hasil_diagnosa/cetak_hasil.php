@@ -132,10 +132,6 @@ ob_start();
                         <h1 style="color:#2b73cc"><strong>RUMAH SAKIT UMUM DAERAH</strong></h1>
                         <h1 style="color:#2bcc5e"><strong>PONDOK AREN</strong></h1>
                     </div>
-                    <!-- <div class="contact">
-                        PERUM BINONG PERMAI. CURUG. KAB. TANGERANG 15810 <br>
-                        021-29872830
-                    </div> -->
                 </td>
             </tr>
         </table>
