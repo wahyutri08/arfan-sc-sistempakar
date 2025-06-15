@@ -217,7 +217,7 @@ if ($role == 'Admin') {
                                                             Action
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                                            <a class="dropdown-item" href="cetak_hasil.php?id_hasil=<?= $row["id_hasil"]; ?>">Cetak Hasil</a>
+                                                            <a class="dropdown-item" target="_blank" href="cetak_hasil.php?id_hasil=<?= $row["id_hasil"]; ?>">Cetak Hasil</a>
                                                             <a class="dropdown-item" href="view.php?id_hasil=<?= $row["id_hasil"]; ?>">View</a>
                                                             <?php if ($role == 'Admin') : ?>
                                                                 <a class="dropdown-item tombol-hapus" href="delete_hasil.php?id_hasil=<?= $row["id_hasil"]; ?>">Delete</a>
