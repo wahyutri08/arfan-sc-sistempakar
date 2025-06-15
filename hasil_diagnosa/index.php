@@ -174,10 +174,10 @@ if ($role == 'Admin') {
                                                         <button type="submit" class="btn btn-sm btn-warning me-3 mb-1">
                                                             Search
                                                         </button>
-                                                        <button type="submit" class="btn btn-sm btn-danger me-1 mb-1">
-                                                            Cetak
-                                                        </button>
-                                                    </div>
+                                                        <a href="cetak.php"><button type="submit" class="btn btn-sm btn-danger me-1 mb-1">
+                                                                Cetak
+                                                            </button>
+                                                    </div></a>
                                                 </div>
                                             </div>
                                         </form>

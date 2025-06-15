@@ -48,7 +48,7 @@ $pasien = $pasien[0];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $pasien["nama_pasien"] ?> - Data Pasien</title>
+    <title><?= $pasien["nama_pasien"]; ?> - Data Pasien</title>
 
     <link rel="stylesheet" href="../assets/extensions/choices.js/public/assets/styles/choices.css">
     <link rel="shortcut icon" href="../assets/compiled/svg/favicon.svg" type="image/x-icon">
