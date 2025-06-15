@@ -219,23 +219,24 @@ $hasil = $hasil[0];
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $gejalaList = explode(', ', $hasil["daftar_gejala"]);
                                     $no = 1;
 
-                                    foreach ($gejalaList as $item):
-                                        if (preg_match('/^(.*)\s\(([\d.]+)\)$/', $item, $matches)):
-                                            $namaGejala = trim($matches[1]);
-                                            $nilaiBobot = trim($matches[2]);
+                                    // Hilangkan koma dan spasi di awal string
+                                    $cleanString = ltrim($hasil["daftar_gejala"], ", ");
+
+                                    preg_match_all('/(.*?)\s*\(([\d.]+)\)/', $cleanString, $matches, PREG_SET_ORDER);
+
+                                    foreach ($matches as $match):
+                                        // Hapus koma dan spasi di depan nama gejala
+                                        $namaGejala = ltrim($match[1], " ,");
+                                        $nilaiBobot = trim($match[2]);
                                     ?>
-                                            <tr>
-                                                <td><?= $no++; ?></td>
-                                                <td><?= htmlspecialchars($namaGejala); ?></td>
-                                                <td><?= htmlspecialchars($nilaiBobot); ?></td>
-                                            </tr>
-                                    <?php
-                                        endif;
-                                    endforeach;
-                                    ?>
+                                        <tr>
+                                            <td><?= $no++; ?></td>
+                                            <td><?= htmlspecialchars($namaGejala); ?></td>
+                                            <td><?= htmlspecialchars($nilaiBobot); ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
