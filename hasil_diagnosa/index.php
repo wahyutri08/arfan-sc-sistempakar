@@ -171,13 +171,10 @@ if ($role == 'Admin') {
                                                 </div>
                                                 <div class="row mt-1">
                                                     <div class="col-12 d-flex justify-content-start">
-                                                        <button type="submit" class="btn btn-sm btn-warning me-3 mb-1">
-                                                            Search
+                                                        <button type="submit" class="btn btn-warning me-3 mb-1">
+                                                            <i class="fa fa-search"></i> Search
                                                         </button>
-                                                        <a href="cetak.php"><button type="submit" class="btn btn-sm btn-danger me-1 mb-1">
-                                                                Cetak
-                                                            </button>
-                                                    </div></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
