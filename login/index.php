@@ -65,17 +65,24 @@ if (isset($_POST["login"])) {
     <link rel="stylesheet" href="../assets/compiled/css/app.css">
     <link rel="stylesheet" href="../assets/compiled/css/app-dark.css">
     <link rel="stylesheet" href="../assets/compiled/css/auth.css">
+    <style>
+        #bg {
+            background-position: center;
+            background-size: cover;
+            background-image: url(../assets/static/images/bg/bg2.jpg);
+        }
+    </style>
 </head>
 
 <body>
     <script src="../assets/static/js/initTheme.js"></script>
     <div id="auth">
 
-        <div class="row h-100">
+        <div class="row h-100 d-flex">
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <div class="text-center">
-                        <a href="../login"><img src="../assets/static/images/logo/LogoDinkes.png" alt="Logo" style="width: 120px; height: 120px;"></a>
+                        <a href="../login"><img src="../assets/static/images/logo/logo3.png" alt="Logo" style="width: 120px; height: 120px;"></a>
                         <h3 class="auth-subtitle mt-3">SISTEM PAKAR UNTUK MENDIAGNOSA PENYAKIT SISTEM SARAF PUSAT (STROKE)</h3>
                     </div>
                     <h1 class="auth-title mt-5">Log in.</h1>
@@ -97,10 +104,8 @@ if (isset($_POST["login"])) {
                     </form>
                 </div>
             </div>
-            <div class="col-lg-7 d-none d-lg-block">
-                <div id="auth-right">
+            <div class="col-lg-7 d-none d-lg-block" id="bg">
 
-                </div>
             </div>
         </div>
 

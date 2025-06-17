@@ -99,7 +99,7 @@ $totalPasien = $query[0]['total_pasien'];
                                             <div class="row">
                                                 <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-3 d-flex justify-content-start ">
                                                     <div class="stats-icon purple mb-2">
-                                                        <i class="iconly-boldShow"></i>
+                                                        <i class="fa fa-users"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-8">
@@ -116,7 +116,7 @@ $totalPasien = $query[0]['total_pasien'];
                                             <div class="row">
                                                 <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-3 d-flex justify-content-start ">
                                                     <div class="stats-icon blue mb-2">
-                                                        <i class="iconly-boldProfile"></i>
+                                                        <i class="fa fa-bug"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-8">
@@ -133,7 +133,7 @@ $totalPasien = $query[0]['total_pasien'];
                                             <div class="row">
                                                 <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-3 d-flex justify-content-start ">
                                                     <div class="stats-icon green mb-2">
-                                                        <i class="iconly-boldAdd-User"></i>
+                                                        <i class="fa fa-clipboard"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-8">
@@ -150,7 +150,7 @@ $totalPasien = $query[0]['total_pasien'];
                                             <div class="row">
                                                 <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-3 d-flex justify-content-start ">
                                                     <div class="stats-icon green mb-2">
-                                                        <i class="iconly-boldAdd-User"></i>
+                                                        <i class="fa fa-file"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-8">
