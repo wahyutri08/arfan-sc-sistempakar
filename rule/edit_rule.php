@@ -110,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">DATA RULE</h4>
+                                    <h4 class="card-title">DATA RULE CERTAINTY FACTOR</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
