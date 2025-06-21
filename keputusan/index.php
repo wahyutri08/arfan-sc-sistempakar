@@ -96,11 +96,19 @@ $jumlahData = count($d_pasien);
                             </h5>
                         </div>
                         <div class="card-body">
+                            <?php
+                            function cekStatusGejala($id_pasien)
+                            {
+                                $cek = query("SELECT COUNT(*) as total FROM gejala_pasien WHERE id_pasien = $id_pasien");
+                                return ($cek[0]['total'] > 0) ? "Sudah diinput" : "Gejala belum diinput";
+                            }
+                            ?>
                             <table class="table table-striped" id="table1">
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Pasien</th>
+                                        <th>Status Gejala</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -109,6 +117,13 @@ $jumlahData = count($d_pasien);
                                         <tr>
                                             <td><?= $i + 1; ?></td>
                                             <td><?= $pasien["nama_pasien"]; ?></td>
+                                            <td>
+                                                <?php
+                                                $status = cekStatusGejala($pasien["id_pasien"]);
+                                                $badgeClass = ($status == "Sudah diinput") ? "bg-success" : "bg-danger";
+                                                ?>
+                                                <span class="badge <?= $badgeClass; ?>"><?= $status; ?></span>
+                                            </td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button class="btn btn-sm btn-info dropdown-toggle me-1" type="button"
