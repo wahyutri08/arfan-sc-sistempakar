@@ -310,39 +310,73 @@ function deleteGejala($id_gejala)
     return mysqli_affected_rows($db);
 }
 
+// function gejalaPasien($data)
+// {
+//     global $db;
+
+//     $id_pasien = htmlspecialchars($data["id_pasien"]);
+//     $id_gejala = $data["id_gejala"];
+//     $nilai_bobot = $data["nilai_bobot"];
+
+//     // Validasi jumlah input
+//     if (count($id_gejala) !== count($nilai_bobot) || empty($id_gejala)) {
+//         return 0; // Gagal input
+//     }
+
+//     // Hapus data lama (jika edit)
+//     mysqli_query($db, "DELETE FROM gejala_pasien WHERE id_pasien = '$id_pasien'");
+
+//     // Simpan ulang semua input
+//     $success = 0;
+//     for ($i = 0; $i < count($id_gejala); $i++) {
+//         $idG = htmlspecialchars($id_gejala[$i]);
+//         $nilai = htmlspecialchars($nilai_bobot[$i]);
+
+//         $query = "INSERT INTO gejala_pasien (id_pasien, id_gejala, nilai_bobot, created_at, updated_at) 
+//                   VALUES ('$id_pasien', '$idG', '$nilai', NOW(), NOW())";
+
+//         $insert = mysqli_query($db, $query);
+//         if ($insert) {
+//             $success++;
+//         }
+//     }
+
+//     return $success > 0 ? $success : 0;
+// }
 function gejalaPasien($data)
 {
     global $db;
 
-    $id_pasien = htmlspecialchars($data["id_pasien"]);
-    $id_gejala = $data["id_gejala"];
-    $nilai_bobot = $data["nilai_bobot"];
+    if (!isset($_GET['id_pasien'])) {
+        return 0;
+    }
 
-    // Validasi jumlah input
-    if (count($id_gejala) !== count($nilai_bobot) || empty($id_gejala)) {
-        return 0; // Gagal input
+    $id_pasien = htmlspecialchars($_GET["id_pasien"]);
+    $cf = $data["cf"]; // array id_gejala => nilai_bobot
+
+    if (empty($cf)) {
+        return 0;
     }
 
     // Hapus data lama (jika edit)
     mysqli_query($db, "DELETE FROM gejala_pasien WHERE id_pasien = '$id_pasien'");
 
-    // Simpan ulang semua input
     $success = 0;
-    for ($i = 0; $i < count($id_gejala); $i++) {
-        $idG = htmlspecialchars($id_gejala[$i]);
-        $nilai = htmlspecialchars($nilai_bobot[$i]);
+    foreach ($cf as $idG => $nilai) {
+        $idG = htmlspecialchars($idG);
+        $nilai = htmlspecialchars($nilai);
 
-        $query = "INSERT INTO gejala_pasien (id_pasien, id_gejala, nilai_bobot, created_at, updated_at) 
+        $query = "INSERT INTO gejala_pasien (id_pasien, id_gejala, nilai_bobot, created_at, updated_at)
                   VALUES ('$id_pasien', '$idG', '$nilai', NOW(), NOW())";
 
-        $insert = mysqli_query($db, $query);
-        if ($insert) {
+        if (mysqli_query($db, $query)) {
             $success++;
         }
     }
 
     return $success > 0 ? $success : 0;
 }
+
 
 
 function addPenyakit($data)

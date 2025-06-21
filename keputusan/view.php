@@ -196,7 +196,7 @@ $pasien = $pasien[0];
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Gejala</th>
-                                        <th>Nilai Bobot</th>
+                                        <th class="text-center">Nilai Bobot</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -204,7 +204,7 @@ $pasien = $pasien[0];
                                         <tr>
                                             <td><?= $i + 1;  ?></td>
                                             <td>(<?= $gp["kode_gejala"]; ?>) <?= $gp["nama_gejala"]; ?></td>
-                                            <td><?= $gp["nilai_bobot"]; ?></td>
+                                            <td class="text-center"><?= $gp["nilai_bobot"]; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

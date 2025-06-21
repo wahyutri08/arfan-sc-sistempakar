@@ -321,3 +321,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
+
+<section class="section">
+    <div class="row" id="table-borderless">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Gejala Pasien</h4>
+                    <h6 class="text-subtitle text-muted"><?= $pasien["nama_pasien"]; ?></h6>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="" enctype="multipart/form-data" class="form" id="myForm">
+
+                        <div class="table-responsive">
+                            <table class="table table-borderless mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Jenis Gejala</th>
+                                        <th class="text-center">Sangat Yakin</th>
+                                        <th class="text-center">Yakin</th>
+                                        <th class="text-center">Cukup Yakin</th>
+                                        <th class="text-center">Kurang Yakin</th>
+                                        <th class="text-center">Tidak Tahu</th>
+                                        <th class="text-center">Tidak</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $gejala = query("SELECT * FROM gejala"); ?>
+                                    <?php foreach ($gejala as $index => $g) : ?>
+                                        <tr>
+                                            <td class="text-bold-500">(<?= $g["kode_gejala"]; ?>) <?= $g["nama_gejala"]; ?></td>
+
+                                            <?php
+                                            // Daftar nilai keyakinan yang akan di-generate
+                                            $keyakinan = ['1', '0.8', '0.6', '0.4', '0.2', '0'];
+                                            foreach ($keyakinan as $ky) :
+                                            ?>
+                                                <td class="text-center">
+                                                    <li class="d-inline-block me-2 mb-1">
+                                                        <div class="form-check">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="radio" class="form-check-input form-check-success"
+                                                                    name="cf[<?= $g['id_gejala'] ?>]" id="<?= $ky ?>_<?= $g['id_gejala'] ?>" value="<?= $ky ?>">
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </td>
+                                            <?php endforeach; ?>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-end mt-2">
+                                <button type="submit" class="btn btn-primary me-1 mb-1">Save Change</button>
+                                <button
+                                    type="reset"
+                                    class="btn btn-light-secondary me-1 mb-1">
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- // Basi
