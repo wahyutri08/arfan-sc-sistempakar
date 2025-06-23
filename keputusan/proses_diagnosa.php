@@ -41,6 +41,12 @@ while ($row = mysqli_fetch_assoc($query)) {
         }
     }
 }
+// Kirim respons JSON untuk SweetAlert
+echo json_encode([
+    'status' => 'success',
+    'message' => "Diagnosis Complete.\nSucceed: $jumlah_berhasil pasien\nFailed: $jumlah_gagal pasien"
+]);
+exit;
 
 // Pakai ini klo ada error
 // while ($row = mysqli_fetch_assoc($query)) {
@@ -60,10 +66,3 @@ while ($row = mysqli_fetch_assoc($query)) {
 //         }
 //     }
 // }
-
-// Kirim respons JSON untuk SweetAlert
-echo json_encode([
-    'status' => 'success',
-    'message' => "Diagnosis Complete.\nSucceed: $jumlah_berhasil pasien\nFailed: $jumlah_gagal pasien"
-]);
-exit;

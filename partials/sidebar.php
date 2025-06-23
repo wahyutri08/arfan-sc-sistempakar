@@ -81,7 +81,7 @@ $user = query("SELECT * FROM users WHERE id = $id")[0];
                                     <a href="../jenis_stroke" class="submenu-link">Jenis Penyakit</a>
                                 </li>
                                 <li class="submenu-item ' . ($current_page == 'rule' ? 'active' : '') . '">
-                                    <a href="../rule" class="submenu-link">Rule</a>
+                                    <a href="../rule" class="submenu-link">Rule Certainty Factor</a>
                                 </li>';
                         }
                         ?>

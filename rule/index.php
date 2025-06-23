@@ -90,10 +90,10 @@ $jumlahData = count($rule);
                                     <tr>
                                         <th>No</th>
                                         <th>Kode Rule</th>
-                                        <th>Nilai MB (Measure of Belief)</th>
-                                        <th>Nilai MD (Measure of Disbelief)</th>
-                                        <th>Nilai CF</th>
-                                        <th>Jenis Penyakit</th>
+                                        <th class="text-center">Nilai MB (Measure of Belief)</th>
+                                        <th class="text-center">Nilai MD (Measure of Disbelief)</th>
+                                        <th class="text-center">Nilai CF</th>
+                                        <th class="text-center">Jenis Penyakit</th>
                                         <th>Jenis Gejala</th>
                                         <th></th>
                                     </tr>
@@ -103,10 +103,10 @@ $jumlahData = count($rule);
                                         <tr>
                                             <td><?= $i + 1; ?></td>
                                             <td><?= $r["kode_rule"]; ?></td>
-                                            <td><?= $r["nilai_mb"]; ?></td>
-                                            <td><?= $r["nilai_md"]; ?></td>
-                                            <td><?= number_format($r["nilai_mb"] - $r["nilai_md"], 2); ?></td>
-                                            <td><?= $r["nama_penyakit"]; ?></td>
+                                            <td class="text-center"><?= $r["nilai_mb"]; ?></td>
+                                            <td class="text-center"><?= $r["nilai_md"]; ?></td>
+                                            <td class="text-center"><?= number_format($r["nilai_mb"] - $r["nilai_md"], 2); ?></td>
+                                            <td class="text-center"><?= $r["nama_penyakit"]; ?></td>
                                             <td><?= $r["nama_gejala"]; ?></td>
                                             <td>
                                                 <div class="dropdown">
