@@ -73,37 +73,37 @@ $users = query("SELECT * FROM users");
                             <table class="table table-striped" id="table1">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Username</th>
-                                        <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
+                                        <th class="text-center">No</th>
+                                        <th class="text-center">Username</th>
+                                        <th class="text-center">Nama</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Role</th>
+                                        <th class="text-center">Status</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($users as $i => $u) : ?>
                                         <tr>
-                                            <td><?= $i + 1; ?></td>
-                                            <td><?= $u["username"]; ?></td>
-                                            <td><?= $u["nama"]; ?></td>
-                                            <td><?= $u["email"]; ?></td>
+                                            <td class="text-center"><?= $i + 1; ?></td>
+                                            <td class="text-center"><?= $u["username"]; ?></td>
+                                            <td class="text-center"><?= $u["nama"]; ?></td>
+                                            <td class="text-center"><?= $u["email"]; ?></td>
                                             <td>
                                                 <?php if ($u['role'] == 'Admin') : ?>
-                                                    <h6><span class="badge bg-primary"><?= $u['role']; ?></span></h6>
+                                                    <h6 class="text-center"><span class="badge bg-primary"><?= $u['role']; ?></span></h6>
                                                 <?php else : ?>
-                                                    <h6><span class="badge bg-warning"><?= $u['role']; ?></span></h6>
+                                                    <h6 class="text-center"><span class="badge bg-warning"><?= $u['role']; ?></span></h6>
                                                 <?php endif; ?>
                                             </td>
                                             <td>
                                                 <?php if ($u['status'] == 'Aktif') : ?>
-                                                    <h6><span class="badge bg-success"><?= $u['status']; ?></span></h6>
+                                                    <h6 class="text-center"><span class="badge bg-success"><?= $u['status']; ?></span></h6>
                                                 <?php else : ?>
-                                                    <h6><span class="badge bg-danger"><?= $u['status']; ?></span></h6>
+                                                    <h6 class="text-center"><span class="badge bg-danger"><?= $u['status']; ?></span></h6>
                                                 <?php endif; ?>
                                             </td>
-                                            <td>
+                                            <td class="text-center">
                                                 <div class="dropdown">
                                                     <button class="btn btn-sm btn-info dropdown-toggle me-1" type="button"
                                                         id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true"
