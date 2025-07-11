@@ -285,7 +285,7 @@ $hasil = $hasil[0];
     <script src="../assets/static/js/pages/parsley.js"></script>
     <script src="../assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script src="../assets/static/js/pages/form-element-select.js"></script>
-    <script src="../assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+    <script src="../assets/extensions/sweetalert2/sweetalert2.all.min.js"></script>
     <script src="../assets/static/js/logoutsweetalert.js"></script>
 
     <script>
