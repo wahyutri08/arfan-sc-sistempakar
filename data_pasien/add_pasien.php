@@ -45,6 +45,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <script src="../assets/static/js/initTheme.js"></script>
+    <div id="pageLoader" style="position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:2000;background:rgba(30,32,38,0.80);display:flex;align-items:center;justify-content:center;">
+        <!-- <img src="../assets/compiled/svg/audio.svg" class="me-4" style="width: 3rem" alt="audio"> -->
+        <button class="btn btn-secondary" type="button" disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Processing...
+        </button>
+    </div>
     <div id="app">
         <!-- Sidebar -->
 
@@ -263,6 +270,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                 });
             });
+        });
+    </script>
+    <script>
+        $(window).on('load', function() {
+            $('#pageLoader').fadeOut(250);
         });
     </script>
 </body>
