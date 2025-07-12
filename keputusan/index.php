@@ -140,6 +140,9 @@ $jumlahData = count($d_pasien);
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
                                                         <a class="dropdown-item" href="view.php?id_pasien=<?= $pasien["id_pasien"]; ?>">View Data Pasien</a>
+                                                        <?php if ($status == "Gejala belum diinput") : ?>
+                                                            <a class="dropdown-item" href="gejala_pasien.php?id_pasien=<?= $pasien["id_pasien"]; ?>">Input / Edit Gejala Pasien</a>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
                                             </td>
