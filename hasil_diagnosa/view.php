@@ -267,9 +267,17 @@ $hasil = $hasil[0];
                                 <tbody>
                                     <tr>
                                         <td><?= $hasil["tanggal_diagnosa"] ?></td>
-                                        <td><?= $hasil["diagnosa"] ?></td>
+                                        <?php if ($hasil["nilai_cf"] == '0') : ?>
+                                            <td>Tidak Ada Stroke</td>
+                                        <?php else : ?>
+                                            <td><?= $hasil["diagnosa"] ?></td>
+                                        <?php endif; ?>
                                         <td><?= round($hasil["nilai_cf"] * 100, 2) ?>%</td>
-                                        <td><?= $hasil["keterangan"] ?></td>
+                                        <?php if ($hasil["nilai_cf"] == "0") : ?>
+                                            <td>Tidak Ada</td>
+                                        <?php else : ?>
+                                            <td><?= $hasil["keterangan"] ?></td>
+                                        <?php endif; ?>
                                     </tr>
                                 </tbody>
                             </table>

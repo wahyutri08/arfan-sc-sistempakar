@@ -193,14 +193,27 @@ ob_start();
         </tr>
         <tr>
             <td><?= $hasil["tanggal_diagnosa"] ?></td>
-            <td><?= $hasil["diagnosa"] ?></td>
+            <?php if ($hasil["nilai_cf"] == '0') : ?>
+                <td>Tidak Ada Stroke</td>
+            <?php else : ?>
+                <td><?= $hasil["diagnosa"] ?></td>
+            <?php endif; ?>
             <td><?= round($hasil["nilai_cf"] * 100, 2) ?>%</td>
-            <td><?= $hasil["keterangan"] ?></td>
+            <?php if ($hasil["nilai_cf"] == "0") : ?>
+                <td>Tidak Ada</td>
+            <?php else : ?>
+                <td><?= $hasil["keterangan"] ?></td>
+            <?php endif; ?>
         </tr>
     </table>
 
     <p style="font-size: 14px; line-height: 1.6;">
-        Berdasarkan Hasil Deteksi, Pasien <strong><?= $hasil["nama_pasien"]; ?></strong> Terindikasi Memiliki Penyakit <strong>Stroke</strong> Dengan Tingkat Kemungkinan Sebesar <strong><?= round($hasil["nilai_cf"] * 100, 2) ?>%</strong>.
+        Berdasarkan Hasil Deteksi, Pasien <strong><?= $hasil["nama_pasien"]; ?></strong>
+        <?php if ($hasil["nilai_cf"] == '0') : ?>
+            Tidak Terindikasi Penyakit Stroke
+        <?php else : ?>
+            Terindikasi Penyakit <strong>Stroke</strong> Dengan Tingkat Kemungkinan Sebesar <strong><?= round($hasil["nilai_cf"] * 100, 2) ?>%</strong>.
+        <?php endif; ?>
     </p>
 
 </body>
