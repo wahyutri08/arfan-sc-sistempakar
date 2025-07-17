@@ -221,7 +221,7 @@ $hasil = $hasil[0];
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Gejala</th>
-                                        <th>Nilai Bobot</th>
+                                        <th class="text-center">Nilai Bobot</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -241,7 +241,7 @@ $hasil = $hasil[0];
                                         <tr>
                                             <td><?= $no++; ?></td>
                                             <td><?= htmlspecialchars($namaGejala); ?></td>
-                                            <td><?= htmlspecialchars($nilaiBobot); ?></td>
+                                            <td class="text-center"><?= htmlspecialchars($nilaiBobot); ?></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -258,25 +258,25 @@ $hasil = $hasil[0];
                             <table class="table table-striped" id="">
                                 <thead>
                                     <tr>
-                                        <th>Tanggal Diagnosa</th>
-                                        <th>Diagnosa Penyakit</th>
-                                        <th>Persentase Diagnosa</th>
-                                        <th>Keterangan</th>
+                                        <th class="text-center">Tanggal Diagnosa</th>
+                                        <th class="text-center">Diagnosa Penyakit</th>
+                                        <th class="text-center">Persentase Diagnosa</th>
+                                        <th class="text-center">Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><?= $hasil["tanggal_diagnosa"] ?></td>
+                                        <td class="text-center"><?= $hasil["tanggal_diagnosa"] ?></td>
                                         <?php if ($hasil["nilai_cf"] == '0') : ?>
-                                            <td>Tidak Ada Stroke</td>
+                                            <td class="text-center">Tidak Ada Stroke</td>
                                         <?php else : ?>
-                                            <td><?= $hasil["diagnosa"] ?></td>
+                                            <td class="text-center"><?= $hasil["diagnosa"] ?></td>
                                         <?php endif; ?>
-                                        <td><?= round($hasil["nilai_cf"] * 100, 2) ?>%</td>
+                                        <td class="text-center"><?= round($hasil["nilai_cf"] * 100, 2) ?>%</td>
                                         <?php if ($hasil["nilai_cf"] == "0") : ?>
-                                            <td>Tidak Ada</td>
+                                            <td class="text-center">Tidak Ada</td>
                                         <?php else : ?>
-                                            <td><?= $hasil["keterangan"] ?></td>
+                                            <td class="text-center"><?= $hasil["keterangan"] ?></td>
                                         <?php endif; ?>
                                     </tr>
                                 </tbody>

@@ -21,6 +21,27 @@ if (isset($_GET["id_hasil"]) && is_numeric($_GET["id_hasil"])) {
 $id_hasil = (int)$id_hasil;
 $user_id = (int)$user_id;
 
+function tgl_indo($tanggal)
+{
+    $bulan = [
+        1 => 'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    ];
+    $tgl = date('d', strtotime($tanggal));
+    $bln = $bulan[(int)date('m', strtotime($tanggal))];
+    $thn = date('Y', strtotime($tanggal));
+    return $tgl . ' ' . $bln . ' ' . $thn;
+}
 
 if ($role == 'Admin') {
     $hasil = query("
@@ -206,7 +227,6 @@ ob_start();
             <?php endif; ?>
         </tr>
     </table>
-
     <p style="font-size: 14px; line-height: 1.6;">
         Berdasarkan Hasil Deteksi, Pasien <strong><?= $hasil["nama_pasien"]; ?></strong>
         <?php if ($hasil["nilai_cf"] == '0') : ?>
@@ -215,7 +235,20 @@ ob_start();
             Terindikasi Penyakit <strong>Stroke</strong> Dengan Tingkat Kemungkinan Sebesar <strong><?= round($hasil["nilai_cf"] * 100, 2) ?>%</strong>.
         <?php endif; ?>
     </p>
-
+    <div style="text-align: right; font-size: 14px; margin-top: 35px;">
+        Tangerang Selatan, <?= tgl_indo($hasil["tanggal_diagnosa"] ?? date('Y-m-d')) ?><br>
+        <div style="margin-right: 60px;">
+            Mengetahui,
+        </div>
+        <img src="../assets/static/images/ttd2.jpg" alt="Tanda Tangan" style="height: 160px;">
+        <div style="margin-right: 40px; margin-top: 0px;">
+            Deriansyah, S.Kep
+        </div>
+    </div>
+    <div style="text-align: left; margin-top: 30px; color:blue;">
+        <img src="../assets/static/images/barcode/barcode.gif" alt="Tanda Tangan" style="height: 70px;"><br><br>
+        https://rsudpondokaren.tangerangselatankota.go.id/
+    </div>
 </body>
 
 </html>
