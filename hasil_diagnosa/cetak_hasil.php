@@ -101,7 +101,7 @@ ob_start();
     <style>
         body {
             font-family: sans-serif;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .header {
@@ -223,30 +223,24 @@ ob_start();
             <?php if ($hasil["nilai_cf"] == "0") : ?>
                 <td>Tidak Ada</td>
             <?php else : ?>
-                <td><?= $hasil["keterangan"] ?></td>
+                <!-- <td><?= $hasil["keterangan"] ?></td> -->
+                <td>Berdasarkan Hasil Deteksi, Pasien <strong><?= $hasil["nama_pasien"]; ?></strong> Terindikasi Penyakit <strong>Stroke</strong></td>
             <?php endif; ?>
         </tr>
     </table>
-    <p style="font-size: 14px; line-height: 1.6;">
-        Berdasarkan Hasil Deteksi, Pasien <strong><?= $hasil["nama_pasien"]; ?></strong>
-        <?php if ($hasil["nilai_cf"] == '0') : ?>
-            Tidak Terindikasi Penyakit Stroke
-        <?php else : ?>
-            Terindikasi Penyakit <strong>Stroke</strong> Dengan Tingkat Kemungkinan Sebesar <strong><?= round($hasil["nilai_cf"] * 100, 2) ?>%</strong>.
-        <?php endif; ?>
-    </p>
-    <div style="text-align: right; font-size: 14px; margin-top: 35px;">
+    <div style="text-align: right; font-size: 11px; margin-top: 35px;">
         Tangerang Selatan, <?= tgl_indo($hasil["tanggal_diagnosa"] ?? date('Y-m-d')) ?><br>
-        <div style="margin-right: 60px;">
+        <div style="margin-right: 50px;">
             Mengetahui,
         </div>
-        <img src="../assets/static/images/ttd2.jpg" alt="Tanda Tangan" style="height: 160px;">
-        <div style="margin-right: 40px; margin-top: 0px;">
+        <img src="../assets/static/images/ttd2.jpg" alt="Tanda Tangan" style="height: 130px;">
+        <div style="margin-right: 30px; margin-top: 0px;">
             Deriansyah, S.Kep
         </div>
     </div>
-    <div style="text-align: left; margin-top: 30px; color:blue;">
-        <img src="../assets/static/images/barcode/barcode.gif" alt="Tanda Tangan" style="height: 70px;"><br><br>
+    <br>
+    <div style="text-align: left; margin-top: 0px; color:blue;">
+        <img src="../assets/static/images/barcode/barcode.gif" alt="Tanda Tangan" style="height: 65px;"><br><br>
         https://rsudpondokaren.tangerangselatankota.go.id/
     </div>
 </body>
