@@ -116,8 +116,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="../home/">Dashboard</a></li>
-                                    <li class="breadcrumb-item" aria-current="page">Keputusan</li>
-                                    <li class="breadcrumb-item" aria-current="page">Proses Diagnosa</li>
+                                    <li class="breadcrumb-item" aria-current="page">
+                                        Master Data
+                                    </li>
+                                    <li class="breadcrumb-item" aria-current="page">Data Pasien</li>
                                     <li class="breadcrumb-item" aria-current="page">Tambah Gejala</li>
                                     <li class="breadcrumb-item active" aria-current="page"><?= $pasien["nama_pasien"]; ?></li>
                                 </ol>
@@ -252,19 +254,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             });
 
             // Handle submit form (baik simpan atau hapus)
+            // $('#myForm').on('submit', function(e) {
+            //     e.preventDefault();
+
+            //     const aksi = $('#aksi').val();
+
+            //     // ✅ Validasi minimal 1 radio dipilih (hanya saat bukan hapus)
+            //     if (aksi !== 'hapus') {
+            //         const minimalSatuDipilih = $('input[type="radio"][name^="cf["]:checked').length > 0;
+            //         if (!minimalSatuDipilih) {
+            //             Swal.fire({
+            //                 icon: 'warning',
+            //                 title: 'Oops!',
+            //                 text: 'At Least One Must Be Selected!'
+            //             });
+            //             return; // stop submit
+            //         }
+            //     }
+
+            // Handle submit form (baik simpan atau hapus)
             $('#myForm').on('submit', function(e) {
                 e.preventDefault();
 
                 const aksi = $('#aksi').val();
 
-                // ✅ Validasi minimal 1 radio dipilih (hanya saat bukan hapus)
+                // ✅ Validasi SEMUA gejala harus dipilih (kecuali hapus)
                 if (aksi !== 'hapus') {
-                    const minimalSatuDipilih = $('input[type="radio"][name^="cf["]:checked').length > 0;
-                    if (!minimalSatuDipilih) {
+                    let isAllFilled = true;
+                    let firstEmpty = null;
+
+                    // Loop setiap baris gejala berdasarkan radio button name cf[ID]
+                    $('input[type="radio"][name^="cf["]').each(function() {
+                        const radioName = $(this).attr('name');
+                        // Hanya cek sekali per nama (gejala)
+                        if ($('input[name="' + radioName + '"]:checked').length === 0) {
+                            isAllFilled = false;
+                            // Cari teks nama gejala dari kolom pertama di baris ini
+                            firstEmpty = $(this).closest('tr').find('td').first().text();
+                            return false; // stop .each
+                        }
+                    });
+
+                    if (!isAllFilled) {
                         Swal.fire({
                             icon: 'warning',
                             title: 'Oops!',
-                            text: 'At Least One Must Be Selected!'
+                            text: 'Semua gejala wajib dipilih!\nCek: ' + firstEmpty
                         });
                         return; // stop submit
                     }
@@ -283,7 +318,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         Swal.fire({
                             icon: res.status,
-                            title: res.status === 'success' ? 'Berhasil' : 'Gagal',
+                            title: res.status === 'success' ? 'Success' : 'Gagal',
                             text: res.message
                         }).then(() => {
                             if (res.status === 'success') {

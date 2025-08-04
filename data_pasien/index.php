@@ -145,7 +145,6 @@ $jumlahData = count($d_pasien);
     <!-- Need: Apexcharts -->
     <script src="../assets/extensions/apexcharts/apexcharts.min.js"></script>
     <script src="../assets/static/js/logoutsweetalert.js"></script>
-
     <script>
         $(document).ready(function() {
             $(document).on('click', '.tombol-hapus', function(e) {
